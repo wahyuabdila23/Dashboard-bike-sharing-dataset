@@ -4,11 +4,11 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 sns.set(style='dark')
 
-def create_count_season_df(df)
+def create_count_season_df(df):
     count_season_df = df.groupby("season").cnt.sum().sort_values(ascending=False).reset_index()
     return count_season_df
 
-def create_count_workingday_df(df)
+def create_count_workingday_df(df):
     count_workingday_df = df.groupby("workingday").cnt.sum().sort_values(ascending=False).reset_index()
     return count_workingday_df
 
