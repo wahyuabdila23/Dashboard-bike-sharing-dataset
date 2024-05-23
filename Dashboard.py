@@ -6,6 +6,7 @@ sns.set(style='dark')
 
 def create_count_season_df(df):
     count_season_df = df.groupby("season").cnt.sum().sort_values(ascending=False).reset_index()
+    count_season_df['season'] = count_season_df['season'].map({1: 'Springer', 2: 'Summer', 3: 'Fall', 4: 'Winter'})
     return count_season_df
 
 def create_count_workingday_df(df):
