@@ -22,8 +22,8 @@ for column in datetime_columns:
     cleaned_df[column] = pd.to_datetime(cleaned_df[column])
 
 # Filter data
-min_date = all_df["dteday"].min()
-max_date = all_df["dteday"].max()
+min_date = cleaned_df["dteday"].min()
+max_date =cleaned_df["dteday"].max()
 
 with st.sidebar:
     # Menambahkan logo perusahaan
@@ -36,7 +36,7 @@ with st.sidebar:
         value=[min_date, max_date]
     )
 
-main_df = all_df[(cleaned_df["dteday"] >= str(start_date)) & 
+main_df = cleaned_df[(cleaned_df["dteday"] >= str(start_date)) & 
                 (cleaned_df["dteday"] <= str(end_date))]
 
 # st.dataframe(main_df)
