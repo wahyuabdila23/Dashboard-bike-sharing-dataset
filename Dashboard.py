@@ -50,19 +50,13 @@ count_workingday_df = create_count_workingday_df(main_df)
 st.header('Bike Sharing Dashboard :sparkles:')
     
 
-# customer demographic
-st.subheader("Customer Demographics")
+# Plot jumlah penyewa sepeda berdasarkan musim
+st.header("Jumlah Penyewa Sepeda Berdasarkan Musim")
 plt.figure(figsize=(10, 5))
-colors = ["#72BCD4", "#D3D3D3", "#D3D3D3", "#D3D3D3"]
-
-sns.barplot(
-    y="cnt",
-    x="season",
-    data=count_season_df,
-    palette=colors
-)
+sns.barplot(y="cnt", x="season", data=count_season_df.sort_values(
+    by="cnt", ascending=False))
 plt.title("Jumlah Penyewa Sepeda Berdasarkan Musim")
 plt.ylabel("Jumlah Penyewa")
-plt.xlabel("")
-plt.tick_params(axis='x', labelsize=12)
-plt.show()
+plt.xticks([0, 1, 2, 3], ['Semi', 'Panas', 'Gugur', 'Salju'])
+plt.xlabel("Musim")
+st.pyplot(plt)
