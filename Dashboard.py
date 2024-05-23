@@ -54,8 +54,7 @@ st.header('Bike Sharing Dashboard :sparkles:')
 # Plot jumlah penyewa sepeda berdasarkan musim
 st.header("Jumlah Penyewa Sepeda Berdasarkan Musim")
 plt.figure(figsize=(10, 5))
-sns.barplot(y="cnt", x="season", data=count_season_df.sort_values(
-    by="cnt", ascending=False))
+sns.barplot(y="cnt", x="season", data=count_season_df)
 plt.title("Jumlah Penyewa Sepeda Berdasarkan Musim")
 plt.ylabel("Jumlah Penyewa")
 plt.xlabel("Musim")
