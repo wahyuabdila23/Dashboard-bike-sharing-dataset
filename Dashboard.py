@@ -5,7 +5,7 @@ import seaborn as sns
 import streamlit as st
 
 # Import data
-hour_df = pd.read_csv("hour.csv")
+hour_df = pd.read_csv("https://github.com/wahyuabdila23/Dashboard-bike-sharing-dataset/blob/main/all_data.csv")
 
 # Data Cleaning
 hour_df["dteday"] = pd.to_datetime(hour_df["dteday"])
