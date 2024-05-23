@@ -11,6 +11,7 @@ def create_count_season_df(df):
 
 def create_count_workingday_df(df):
     count_workingday_df = df.groupby("workingday").cnt.sum().sort_values(ascending=False).reset_index()
+    count_workingday_df['workingday'] = count_workingday_df['workingday'].map({1: 'Workingday', 0: 'Holiday'})
     return count_workingday_df
 
 cleaned_df = pd.read_csv("all_data.csv")
@@ -57,5 +58,14 @@ plt.figure(figsize=(10, 5))
 colors = ["#1F77B4", "#D3D3D3", "#D3D3D3", "#D3D3D3"]
 sns.barplot(y="cnt", x="season", data=count_season_df, palette=colors)
 plt.title("Jumlah Penyewa Sepeda Berdasarkan Musim")
+plt.ylabel("Jumlah Penyewa")
+st.pyplot(plt)
+
+
+# Plot jumlah penyewa sepeda berdasarkan musim
+st.subheader("Jumlah Penyewa Sepeda Berdasarkan Workingday")
+plt.figure(figsize=(10, 5))
+sns.barplot(y="cnt", x="workingday", data=count_workingday_df, palette=colors)
+plt.title("Jumlah Penyewa Sepeda Berdasarkan Workingday")
 plt.ylabel("Jumlah Penyewa")
 st.pyplot(plt)
