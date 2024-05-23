@@ -43,7 +43,7 @@ main_df = cleaned_df[(cleaned_df["dteday"] >= str(start_date)) &
 
 # # Menyiapkan berbagai dataframe
 count_season_df = create_count_season_df(main_df)
-count_workingday_df = count_workingday_df(main_df)
+count_workingday_df = create_count_workingday_df(main_df)
 
 
 # plot number of daily orders (2021)
