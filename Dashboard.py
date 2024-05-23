@@ -57,6 +57,5 @@ sns.barplot(y="cnt", x="season", data=count_season_df.sort_values(
     by="cnt", ascending=False))
 plt.title("Jumlah Penyewa Sepeda Berdasarkan Musim")
 plt.ylabel("Jumlah Penyewa")
-plt.xticks([0, 1, 2, 3], ['Semi', 'Panas', 'Gugur', 'Salju'])
 plt.xlabel("Musim")
 st.pyplot(plt)
