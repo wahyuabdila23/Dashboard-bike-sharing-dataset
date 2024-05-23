@@ -9,6 +9,8 @@ st.title("Dashboard Penyewaan Sepeda")
 # Membaca dataset
 data = pd.read_csv("all_data.csv")
 
+# Konversi kolom "dteday" menjadi tipe data datetime
+data["dteday"] = pd.to_datetime(data["dteday"])
 
 # Plot jumlah penyewa sepeda per hari
 st.header("Jumlah Penyewa Sepeda per Hari (2011-2012)")
@@ -17,7 +19,7 @@ sns.lineplot(x='dteday', y='cnt', data=data)
 plt.xlabel("Hari")
 plt.ylabel("Jumlah Penyewa")
 plt.title("Jumlah Penyewa Sepeda per Hari (2011-2012)")
-st.pyplot(plt)
+st.pyplot()
 
 # Grup berdasarkan tahun
 cnt_year = data.groupby("yr").cnt.sum().sort_values(
@@ -40,7 +42,7 @@ plt.title("Jumlah Penyewa Sepeda Berdasarkan Musim")
 plt.ylabel("Jumlah Penyewa")
 plt.xticks([0, 1, 2, 3], ['Semi', 'Panas', 'Gugur', 'Salju'])
 plt.xlabel("Musim")
-st.pyplot(plt)
+st.pyplot()
 
 # Plot jumlah penyewa sepeda berdasarkan hari kerja atau tidak
 st.header("Jumlah Penyewa Sepeda Berdasarkan Hari Libur atau Tidak")
@@ -51,7 +53,7 @@ plt.title("Jumlah Penyewa Sepeda Berdasarkan Hari Libur atau Tidak")
 plt.ylabel("Jumlah Penyewa")
 plt.xticks([0, 1], ['Hari Libur', 'Hari Kerja'])
 plt.xlabel("Hari Libur atau Tidak")
-st.pyplot(plt)
+st.pyplot()
 
 # Matriks korelasi
 st.header("Matriks Korelasi")
@@ -63,4 +65,4 @@ correlation_matrix = subset_df.corr()
 plt.figure(figsize=(8, 6))
 sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', vmin=-1, vmax=1)
 plt.title('Matriks Korelasi')
-st.pyplot(plt)
+st.pyplot()
