@@ -89,7 +89,7 @@ st.pyplot(plt)
 # Plot jumlah penyewa sepeda berdasarkan musim
 st.subheader("Jumlah Penyewa Sepeda Berdasarkan Musim")
 plt.figure(figsize=(10, 5))
-colors = ["#1F77B4", "#D3D3D3", "#D3D3D3", "#D3D3D3"]
+colors = ["#1F61C4", "#D3D3D3", "#D3D3D3", "#D3D3D3"]
 sns.barplot(y="cnt", x="season", data=count_season_df, palette=colors)
 plt.title("Jumlah Penyewa Sepeda Berdasarkan Musim")
 plt.ylabel("Jumlah Penyewa")
