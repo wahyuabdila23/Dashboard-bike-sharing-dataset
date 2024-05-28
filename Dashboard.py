@@ -20,6 +20,13 @@ def create_corelation_df(df):
     corelation_df = subset_df.corr()
     return corelation_df
 
+def classify_peak_hours(df, threshold):
+    df['is_peak'] = (df['cnt'] > threshold).astype(int)
+    features = ['hr', 'temp', 'atemp', 'hum', 'windspeed', 'season', 'workingday']
+    X = df[features]
+    y = df['is_peak']
+    return X, y
+
 cleaned_df = pd.read_csv("all_data.csv")
 
 datetime_columns = ["dteday"]
