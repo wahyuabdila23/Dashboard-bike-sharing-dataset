@@ -22,7 +22,7 @@ def create_corelation_df(df):
 
 def classify_peak_hours(df, threshold):
     df['is_peak'] = (df['cnt'] > threshold).astype(int)
-    features = ['hr', 'temp', 'atemp', 'hum', 'windspeed', 'season', 'workingday']
+    features = ['hr']
     X = df[features]
     y = df['is_peak']
     return X, y
