@@ -16,7 +16,7 @@ def create_count_workingday_df(df):
 
 def create_corelation_df(df):
     selected_columns =['temp', 'atemp','hum','windspeed','cnt']
-    subset_df = df[selected_columns]
+    subset_df = df[selected_columns].map({'cnt':"Jumlah Penyewa"})
     corelation_df = subset_df.corr()
     return corelation_df
 
