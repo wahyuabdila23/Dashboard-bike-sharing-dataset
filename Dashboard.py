@@ -57,7 +57,7 @@ with col1:
     total_all_rides = main_df['cnt'].sum()
     st.metric("Total Penyewa", value=total_all_rides)
 with col2:
-    total_day = main_df['dteday'].sum()
+    total_day = main_df['dteday'].nunique()
     st.metric("Total Hari", value=total_day)
 with col3:
     rata_penyewa_perhari = total_all_rides/total_day 
