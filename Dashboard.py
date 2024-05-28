@@ -47,6 +47,24 @@ main_df = cleaned_df[(cleaned_df["dteday"] >= str(start_date)) &
 count_season_df = create_count_season_df(main_df)
 count_workingday_df = create_count_workingday_df(main_df)
 
+# MAINPAGE 
+st.title(":bar_chart: Capital Bikeshare: Bike-Sharing Dashboard")
+st.markdown("##")
+
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    total_all_rides = main_df['cnt'].sum()
+    st.metric("Total Rides", value=total_all_rides)
+with col2:
+    total_casual_rides = main_df['casual'].sum()
+    st.metric("Total Casual Rides", value=total_casual_rides)
+with col3:
+    total_registered_rides = main_df['registered'].sum()
+    st.metric("Total Registered Rides", value=total_registered_rides)
+
+st.markdown("---")
+
 
 # plot number of daily orders (2021)
 st.header('Bike Sharing Dashboard :sparkles:')
