@@ -61,7 +61,7 @@ with col2:
     st.metric("Total Hari", value=total_day)
 with col3:
     rata_penyewa_perhari = total_all_rides/total_day 
-    st.metric("Rata-rata Penyewa sepeda Perhari", value=total_registered_rides)
+    st.metric("Rata-rata Penyewa sepeda Perhari", value=rata_penyewa_perhari)
 
 st.markdown("---")
 
