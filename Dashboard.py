@@ -4,6 +4,12 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 sns.set(style='dark')
 
+
+
+st.set_page_config(page_title="Bike Sharing Dashboard",
+                   page_icon="bar_chart:",
+                   layout="wide")
+
 def create_count_season_df(df):
     count_season_df = df.groupby("season").cnt.sum().sort_values(ascending=False).reset_index()
     count_season_df['season'] = count_season_df['season'].map({1: 'Springer', 2: 'Summer', 3: 'Fall', 4: 'Winter'})
@@ -135,3 +141,6 @@ st.dataframe(peak_hours)
 
 st.markdown("### Jam Sepi")
 st.dataframe(off_peak_hours)
+
+
+st.caption('Copyright (c), created by M. Wahyu Abdila Lubis')
