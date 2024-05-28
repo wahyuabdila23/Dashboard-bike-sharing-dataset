@@ -18,6 +18,7 @@ def create_corelation_df(df):
     selected_columns =['temp', 'atemp','hum','windspeed','cnt']
     subset_df = df[selected_columns]
     corelation_df = subset_df.corr()
+    return corelation_df
 
 cleaned_df = pd.read_csv("all_data.csv")
 
