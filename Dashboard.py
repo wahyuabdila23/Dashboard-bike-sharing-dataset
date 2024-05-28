@@ -7,8 +7,7 @@ sns.set(style='dark')
 
 
 st.set_page_config(page_title="Bike Sharing Dashboard",
-                   page_icon="bar_chart:",
-                   layout="wide")
+                   page_icon="bar_chart:")
 
 def create_count_season_df(df):
     count_season_df = df.groupby("season").cnt.sum().sort_values(ascending=False).reset_index()
