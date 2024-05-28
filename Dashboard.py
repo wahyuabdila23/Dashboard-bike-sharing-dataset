@@ -20,13 +20,6 @@ def create_corelation_df(df):
     corelation_df = subset_df.corr()
     return corelation_df
 
-def classify_peak_hours(df, threshold):
-    df['is_peak'] = (df['cnt'] > threshold).astype(int)
-    features = ['hr']
-    X = df[features]
-    y = df['is_peak']
-    return X, y
-
 cleaned_df = pd.read_csv("all_data.csv")
 
 datetime_columns = ["dteday"]
@@ -118,36 +111,27 @@ sns.heatmap(corelation_df, annot=True, cmap='coolwarm', vmin=-1, vmax=1)
 plt.title('Matriks Korelasi')
 st.pyplot(plt)
 
+# Additional Analysis: Clustering Based on Hour
+st.subheader("Analisis Keramaian Berdasarkan Jam")
 
-# Additional Analysis: Classification for Peak Hours
-st.subheader("Klasifikasi Jam Ramai Penyewa")
+# Prepare data for clustering by hour
+hourly_df = main_df.groupby('hr')['cnt'].mean().reset_index()
+hourly_df.columns = ['Jam', 'Rata-rata Penyewa']
 
-# Define threshold for peak hours
-threshold = main_df['cnt'].quantile(0.75)
-
-# Prepare data for classification
-X, y = classify_peak_hours(main_df, threshold)
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
-# Train a RandomForestClassifier
-clf = RandomForestClassifier(n_estimators=100, random_state=42)
-clf.fit(X_train, y_train)
-
-# Predictions and Evaluation
-y_pred = clf.predict(X_test)
-
-st.markdown("#### Classification Report")
-st.text(classification_report(y_test, y_pred))
-
-st.markdown("#### Confusion Matrix")
-conf_matrix = confusion_matrix(y_test, y_pred)
-sns.heatmap(conf_matrix, annot=True, fmt="d", cmap='coolwarm')
-plt.xlabel("Predicted")
-plt.ylabel("Actual")
+# Plotting the average count per hour
+plt.figure(figsize=(12, 6))
+sns.lineplot(x='Jam', y='Rata-rata Penyewa', data=hourly_df, marker='o')
+plt.title("Rata-rata Penyewa Sepeda Berdasarkan Jam")
+plt.xlabel("Jam")
+plt.ylabel("Rata-rata Penyewa")
 st.pyplot(plt)
 
-st.markdown("#### Feature Importances")
-feature_importances = pd.Series(clf.feature_importances_, index=X.columns)
-sns.barplot(x=feature_importances, y=feature_importances.index)
-plt.title("Feature Importances")
-st.pyplot(plt)
+# Highlight peak and off-peak hours based on visualization
+peak_hours = hourly_df[hourly_df['Rata-rata Penyewa'] > hourly_df['Rata-rata Penyewa'].mean()]
+off_peak_hours = hourly_df[hourly_df['Rata-rata Penyewa'] <= hourly_df['Rata-rata Penyewa'].mean()]
+
+st.markdown("### Jam Ramai")
+st.dataframe(peak_hours)
+
+st.markdown("### Jam Sepi")
+st.dataframe(off_peak_hours)
