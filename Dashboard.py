@@ -95,6 +95,7 @@ plt.ylabel("Jumlah Penyewa")
 st.pyplot(plt)
 
 # Plot matriks korelasi dengan seaborn
+st.subheader("Korelasi suhu dengan total penyewa")
 plt.figure(figsize=(8, 6))
 sns.heatmap(correlation_df, annot=True, cmap='coolwarm', vmin=-1, vmax=1)
 plt.title('Matriks Korelasi')
