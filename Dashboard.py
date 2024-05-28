@@ -110,3 +110,37 @@ plt.figure(figsize=(8, 6))
 sns.heatmap(corelation_df, annot=True, cmap='coolwarm', vmin=-1, vmax=1)
 plt.title('Matriks Korelasi')
 st.pyplot(plt)
+
+
+# Additional Analysis: Classification for Peak Hours
+st.subheader("Klasifikasi Jam Ramai Penyewa")
+
+# Define threshold for peak hours
+threshold = main_df['cnt'].quantile(0.75)
+
+# Prepare data for classification
+X, y = classify_peak_hours(main_df, threshold)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Train a RandomForestClassifier
+clf = RandomForestClassifier(n_estimators=100, random_state=42)
+clf.fit(X_train, y_train)
+
+# Predictions and Evaluation
+y_pred = clf.predict(X_test)
+
+st.markdown("#### Classification Report")
+st.text(classification_report(y_test, y_pred))
+
+st.markdown("#### Confusion Matrix")
+conf_matrix = confusion_matrix(y_test, y_pred)
+sns.heatmap(conf_matrix, annot=True, fmt="d", cmap='coolwarm')
+plt.xlabel("Predicted")
+plt.ylabel("Actual")
+st.pyplot(plt)
+
+st.markdown("#### Feature Importances")
+feature_importances = pd.Series(clf.feature_importances_, index=X.columns)
+sns.barplot(x=feature_importances, y=feature_importances.index)
+plt.title("Feature Importances")
+st.pyplot(plt)
