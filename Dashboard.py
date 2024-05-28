@@ -14,6 +14,11 @@ def create_count_workingday_df(df):
     count_workingday_df['workingday'] = count_workingday_df['workingday'].map({1: 'Workingday', 0: 'Holiday'})
     return count_workingday_df
 
+def create_corelation_df(df):
+    selected_columns =['temp', 'atemp','hum','windspeed','cnt']
+    subset_df = df[selected_columns]
+    corelation_df = subset_df.corr()
+
 cleaned_df = pd.read_csv("all_data.csv")
 
 datetime_columns = ["dteday"]
@@ -46,6 +51,7 @@ main_df = cleaned_df[(cleaned_df["dteday"] >= str(start_date)) &
 # # Menyiapkan berbagai dataframe
 count_season_df = create_count_season_df(main_df)
 count_workingday_df = create_count_workingday_df(main_df)
+corelation_df = create_corelation_df(main_df)
 
 # MAINPAGE 
 st.title("Bike Sharing Dashboard")
@@ -87,3 +93,9 @@ sns.barplot(y="cnt", x="workingday", data=count_workingday_df, palette=colors)
 plt.title("Jumlah Penyewa Sepeda Berdasarkan Workingday")
 plt.ylabel("Jumlah Penyewa")
 st.pyplot(plt)
+
+# Plot matriks korelasi dengan seaborn
+plt.figure(figsize=(8, 6))
+sns.heatmap(correlation_df, annot=True, cmap='coolwarm', vmin=-1, vmax=1)
+plt.title('Matriks Korelasi')
+plt.show()
