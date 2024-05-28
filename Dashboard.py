@@ -16,7 +16,7 @@ def create_count_workingday_df(df):
 
 def create_corelation_df(df):
     selected_columns =['temp', 'atemp','hum','windspeed','cnt']
-    subset_df = df[selected_columns].map({cnt:"Jumlah Penyewa"})
+    subset_df = df[selected_columns]
     corelation_df = subset_df.corr()
     return corelation_df
 
@@ -75,6 +75,15 @@ st.markdown("---")
 
 # plot number of daily orders (2021)
 st.header('Bike Sharing Dashboard :sparkles:')
+
+# Plot jumlah penyewa sepeda berdasarkan musim
+st.subheader("Grafik Penyewa Sepeda 2011-2012")
+plt.figure(figsize=(15,5))
+sns.lineplot(x='dteday', y='cnt', data=hour_df)
+plt.xlabel("Hari")
+plt.ylabel("Jumlah Penyewa")
+plt.title("Jumlah penyewa sepeda per hari(2011-2012)")
+st.pyplot(plt)
     
 
 # Plot jumlah penyewa sepeda berdasarkan musim
