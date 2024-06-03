@@ -82,12 +82,12 @@ st.markdown("---")
 st.header('Bike Sharing Dashboard :sparkles:')
 
 # Plot jumlah penyewa sepeda berdasarkan musim
-st.subheader("Grafik Penyewa Sepeda 2011-2012")
+st.subheader("Number of bike renters per day (2011-2012)")
 plt.figure(figsize=(15,5))
 sns.lineplot(x='dteday', y='cnt', data=main_df)
-plt.xlabel("Hari")
-plt.ylabel("Jumlah Penyewa")
-plt.title("Jumlah penyewa sepeda per hari(2011-2012)")
+plt.xlabel("Date")
+plt.ylabel("Number of Renters")
+plt.title("Number of bike renters per day (2011-2012)")
 st.pyplot(plt)
     
 
