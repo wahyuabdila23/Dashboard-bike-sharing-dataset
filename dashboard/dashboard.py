@@ -1,3 +1,6 @@
+import os
+os.environ['REQUESTS_CA_BUNDLE'] = '/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/site-packages/certifi/cacert.pem'
+
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
