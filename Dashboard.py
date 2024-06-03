@@ -101,7 +101,7 @@ with col3:
 
 st.markdown("---")
 
-# Plot jumlah penyewa sepeda berdasarkan musim
+# Plot jumlah penyewa sepeda berdasarkan tahun
 st.subheader("Number of bike renters per day (2011-2012)")
 plt.figure(figsize=(15,5))
 sns.lineplot(x='dteday', y='cnt', data=main_df)
@@ -109,6 +109,15 @@ plt.xlabel("Date")
 plt.ylabel("Number of Renters")
 plt.title("Number of bike renters per day (2011-2012)")
 st.pyplot(plt)
+
+plt.figure(figsize=(12, 6))
+sns.lineplot(data=cnt_year_month_df, x='Month', y='Total Count', hue='Year', marker='o', palette=['#8CB4E1','#1F61C4'])
+plt.title('Comparison of Bike Renters per Month (2011 vs 2012)')
+plt.xlabel('Month')
+plt.ylabel('Number of Renters')
+plt.xticks(range(1, 13), ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'])
+plt.legend(title='Year')
+plt.show()
     
 
 # Plot jumlah penyewa sepeda berdasarkan musim
