@@ -77,11 +77,12 @@ main_df = cleaned_df[(cleaned_df["dteday"] >= str(start_date)) &
 # st.dataframe(main_df)
 
 # # Menyiapkan berbagai dataframe
+cnt_year_month_df= create_cnt_year_month_df(main_df)
 count_season_df = create_count_season_df(main_df)
 count_workingday_df = create_count_workingday_df(main_df)
 corelation_df = create_corelation_df(main_df)
 hourly_df = create_hourly_df(main_df)
-cnt_year_month_df= create_cnt_year_month_df(main_df)
+
 
 # MAINPAGE 
 st.title("Bike Sharing Dashboard")
@@ -110,6 +111,8 @@ plt.ylabel("Number of Renters")
 plt.title("Number of bike renters per day (2011-2012)")
 st.pyplot(plt)
 
+# Plot jumlah penyewa sepeda berdasarkan tahun
+st.subheader("Perbandingan Penyewa Tahun 2011 Vs 2012")
 plt.figure(figsize=(12, 6))
 sns.lineplot(data=cnt_year_month_df, x='Month', y='Total Count', hue='Year', marker='o', palette=['#8CB4E1','#1F61C4'])
 plt.title('Comparison of Bike Renters per Month (2011 vs 2012)')
@@ -147,7 +150,6 @@ st.pyplot(plt)
 
 # Additional Analysis: Clustering Based on Hour
 st.subheader("Analysis of Bike Renter Crowds by Hour")
-
 # Plotting the average count per hour
 plt.figure(figsize=(12, 6))
 sns.lineplot(x='Hour', y='Average Rentals', data=hourly_df, marker='o', hue='Hour Category', palette=['#8CB4E1','#1F61C4'])
