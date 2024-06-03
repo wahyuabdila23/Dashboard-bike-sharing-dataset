@@ -117,7 +117,7 @@ plt.xlabel('Month')
 plt.ylabel('Number of Renters')
 plt.xticks(range(1, 13), ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'])
 plt.legend(title='Year')
-plt.show()
+st.pyplot(plt)
     
 
 # Plot jumlah penyewa sepeda berdasarkan musim
@@ -155,7 +155,7 @@ plt.title("Average Bike Renters by Hour with Clustering of Peak and Off-Peak Hou
 plt.xlabel("Hour")
 plt.ylabel("Average Renters")
 plt.legend(title='Hour Category')
-plt.show()
+st.pyplot(plt)
 
 # Highlight peak and off-peak hours based on visualization
 threshold = hourly_df['Average Rentals'].mean()
