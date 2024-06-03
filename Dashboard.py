@@ -9,6 +9,11 @@ sns.set(style='dark')
 st.set_page_config(page_title="Bike Sharing Dashboard",
                    page_icon="bar_chart:")
 
+def create_cnt_year_month_df(df):
+    cnt_year_month_df = df.groupby(['yr', df['dteday'].dt.month])['cnt'].sum().reset_index()
+    cnt_year_month_df.columns = ['Year', 'Month', 'Total Count']
+    cnt_year_month_df['Year']= cnt_year_month_df['Year'].map({0:'2011', 1: '2012'})
+
 def create_count_season_df(df):
     count_season_df = df.groupby("season").cnt.sum().sort_values(ascending=False).reset_index()
     count_season_df['season'] = count_season_df['season'].map({1: 'Springer', 2: 'Summer', 3: 'Fall', 4: 'Winter'})
@@ -76,6 +81,7 @@ count_season_df = create_count_season_df(main_df)
 count_workingday_df = create_count_workingday_df(main_df)
 corelation_df = create_corelation_df(main_df)
 hourly_df = create_hourly_df(main_df)
+cnt_year_month_df= create_cnt_year_month_df(main_df)
 
 # MAINPAGE 
 st.title("Bike Sharing Dashboard")
