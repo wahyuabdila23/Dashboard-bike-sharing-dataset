@@ -149,6 +149,7 @@ plt.legend(title='Hour Category')
 plt.show()
 
 # Highlight peak and off-peak hours based on visualization
+threshold = hourly_df['Average Rentals'].mean()
 peak_hours = hourly_df[hourly_df['Average Rentals'] > threshold]
 off_peak_hours = hourly_df[hourly_df['Average Rentals'] <= threshold]
 
