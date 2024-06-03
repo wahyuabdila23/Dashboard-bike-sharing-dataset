@@ -113,7 +113,7 @@ plt.title("Number of bike renters per day (2011-2012)")
 st.pyplot(plt)
 
 # Plot jumlah penyewa sepeda berdasarkan tahun
-st.subheader("Perbandingan Penyewa Tahun 2011 Vs 2012")
+st.subheader("Comparison of Bike Renters per Month (2011 vs 2012)")
 plt.figure(figsize=(12, 6))
 sns.lineplot(data=cnt_year_month_df, x='Month', y='Total Count', hue='Year', marker='o', palette=['#8CB4E1','#1F61C4'])
 plt.title('Comparison of Bike Renters per Month (2011 vs 2012)')
