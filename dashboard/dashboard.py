@@ -1,6 +1,6 @@
-import os
-os.environ['REQUESTS_CA_BUNDLE'] = '/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/site-packages/certifi/cacert.pem'
-
+import ssl
+# This code is required to avoid SSL certificate verification issues when downloading the dataset
+ssl._create_default_https_context = ssl._create_unverified_context
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
