@@ -13,6 +13,7 @@ def create_cnt_year_month_df(df):
     cnt_year_month_df = df.groupby(['yr', df['dteday'].dt.month])['cnt'].sum().reset_index()
     cnt_year_month_df.columns = ['Year', 'Month', 'Total Count']
     cnt_year_month_df['Year']= cnt_year_month_df['Year'].map({0:'2011', 1: '2012'})
+    return cnt_year_month_df
 
 def create_count_season_df(df):
     count_season_df = df.groupby("season").cnt.sum().sort_values(ascending=False).reset_index()
