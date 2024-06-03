@@ -1,6 +1,3 @@
-import ssl
-# This code is required to avoid SSL certificate verification issues when downloading the dataset
-ssl._create_default_https_context = ssl._create_unverified_context
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
