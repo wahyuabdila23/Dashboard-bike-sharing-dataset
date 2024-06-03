@@ -104,12 +104,12 @@ with col3:
 st.markdown("---")
 
 # Plot jumlah penyewa sepeda berdasarkan tahun
-st.subheader("Number of bike renters per day (2011-2012)")
+st.subheader("Number of Bike Renters per Day (2011-2012)")
 plt.figure(figsize=(15,5))
 sns.lineplot(x='dteday', y='cnt', data=main_df)
 plt.xlabel("Date")
 plt.ylabel("Number of Renters")
-plt.title("Number of bike renters per day (2011-2012)")
+plt.title("Number of Bike Renters per Day (2011-2012)")
 st.pyplot(plt)
 
 # Plot jumlah penyewa sepeda berdasarkan tahun
