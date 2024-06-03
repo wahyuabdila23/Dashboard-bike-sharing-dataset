@@ -1,4 +1,5 @@
 # Dashboard-bike-sharing-dataset
+Here are the steps you can take to access my dashboard
 
 ## Installation
 1. Clone this repository to your local machine:
@@ -17,4 +18,8 @@ pip install -r requirements.txt
 ```
 cd Dashboard-bike-sharing-dataset/dashboard
 streamlit run dashboard.py
+```
+## Run From Browser
+```
+https://dashboard-bike-sharing-dataset-mwahyuabdilalubis.streamlit.app/
 ```
