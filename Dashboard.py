@@ -28,6 +28,18 @@ def create_corelation_df(df):
 def create_hourly_df(df):
     hourly_df = df.groupby('hr')['cnt'].mean().reset_index()
     hourly_df.columns = ['Hour', 'Average Rentals']
+
+    # Clustering hours based on whether they belong to the "busy" or "off-peak" category
+    threshold = hourly_df['Average Rentals'].mean()
+
+    def classify_by_hourly_count(value):
+        if value > threshold:
+            return 'Peak Hours'
+        else:
+            return 'Off Peak Hours'
+    
+    hourly_df['Hour Category'] = hourly_df['Average Rentals'].apply(classify_by_hourly_count)
+  
     return hourly_df
 
 cleaned_df = pd.read_csv("all_data.csv")
@@ -49,7 +61,7 @@ with st.sidebar:
     
     # Mengambil start_date & end_date dari date_input
     start_date, end_date = st.date_input(
-        label='Rentang Waktu',min_value=min_date,
+        label='Time Range',min_value=min_date,
         max_value=max_date,
         value=[min_date, max_date]
     )
@@ -120,17 +132,6 @@ st.pyplot(plt)
 
 # Additional Analysis: Clustering Based on Hour
 st.subheader("Analysis of Bike Renter Crowds by Hour")
-
-# Clustering hours based on whether they belong to the "busy" or "off-peak" category
-threshold = hourly_df['Average Rentals'].mean()
-
-def classify_by_hourly_count(value):
-    if value > threshold:
-        return 'Peak Hours'
-    else:
-        return 'Off Peak Hours'
-
-hourly_df['Hour Category'] = hourly_df['Average Rentals'].apply(classify_by_hourly_count)
 
 # Plotting the average count per hour
 plt.figure(figsize=(12, 6))
