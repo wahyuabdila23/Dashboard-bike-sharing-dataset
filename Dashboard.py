@@ -28,6 +28,7 @@ def create_corelation_df(df):
 def create_hourly_df(df):
     hourly_df = df.groupby('hr')['cnt'].mean().reset_index()
     hourly_df.columns = ['Hour', 'Average Rentals']
+    return hourly_df
 
 cleaned_df = pd.read_csv("all_data.csv")
 
