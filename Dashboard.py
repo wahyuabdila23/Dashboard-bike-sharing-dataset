@@ -24,6 +24,10 @@ def create_corelation_df(df):
     subset_df = df[selected_columns]
     corelation_df = subset_df.corr()
     return corelation_df
+  
+def create_hourly_df(df):
+    hourly_df = df.groupby('hr')['cnt'].mean().reset_index()
+    hourly_df.columns = ['Hour', 'Average Rentals']
 
 cleaned_df = pd.read_csv("all_data.csv")
 
@@ -58,6 +62,7 @@ main_df = cleaned_df[(cleaned_df["dteday"] >= str(start_date)) &
 count_season_df = create_count_season_df(main_df)
 count_workingday_df = create_count_workingday_df(main_df)
 corelation_df = create_corelation_df(main_df)
+hourly_df = create_hourly_df(main_df)
 
 # MAINPAGE 
 st.title("Bike Sharing Dashboard")
@@ -67,19 +72,15 @@ col1, col2, col3 = st.columns(3)
 
 with col1:
     total_all_rides = main_df['cnt'].sum()
-    st.metric("Total Penyewa", value=total_all_rides)
+    st.metric("Total Renters", value=total_all_rides)
 with col2:
     total_day = main_df['dteday'].nunique()
-    st.metric("Total Hari", value=total_day)
+    st.metric("Total Days", value=total_day)
 with col3:
     rata_penyewa_perhari = total_all_rides/total_day 
-    st.metric("Rata-rata Penyewa sepeda Perhari", value=rata_penyewa_perhari)
+    st.metric("Average Bike Renters per Day", value=rata_penyewa_perhari)
 
 st.markdown("---")
-
-
-# plot number of daily orders (2021)
-st.header('Bike Sharing Dashboard :sparkles:')
 
 # Plot jumlah penyewa sepeda berdasarkan musim
 st.subheader("Number of bike renters per day (2011-2012)")
@@ -92,53 +93,61 @@ st.pyplot(plt)
     
 
 # Plot jumlah penyewa sepeda berdasarkan musim
-st.subheader("Jumlah Penyewa Sepeda Berdasarkan Musim")
+st.subheader("Number of Bike Renters Based on Season")
 plt.figure(figsize=(10, 5))
 colors = ["#1F61C4", "#D3D3D3", "#D3D3D3", "#D3D3D3"]
 sns.barplot(y="cnt", x="season", data=count_season_df, palette=colors)
-plt.title("Jumlah Penyewa Sepeda Berdasarkan Musim")
-plt.ylabel("Jumlah Penyewa")
+plt.title("Number of Bike Renters Based on Season")
+plt.ylabel("Number of Renters")
 st.pyplot(plt)
 
 
-# Plot jumlah penyewa sepeda berdasarkan musim
-st.subheader("Jumlah Penyewa Sepeda Berdasarkan Workingday")
+# Plot jumlah penyewa sepeda berdasarkan workingday and holidays
+st.subheader("Number of Bike Renters Based on Workingday")
 plt.figure(figsize=(10, 5))
 sns.barplot(y="cnt", x="workingday", data=count_workingday_df, palette=colors)
-plt.title("Jumlah Penyewa Sepeda Berdasarkan Workingday")
-plt.ylabel("Jumlah Penyewa")
+plt.title("Number of Bike Renters Based on Workingday")
+plt.ylabel("Number of Renters")
 st.pyplot(plt)
 
 # Plot matriks korelasi dengan seaborn
-st.subheader("Korelasi suhu dengan total penyewa")
+st.subheader("Correlation Matrix")
 plt.figure(figsize=(8, 6))
-sns.heatmap(corelation_df, annot=True, cmap='coolwarm', vmin=-1, vmax=1)
-plt.title('Matriks Korelasi')
+sns.heatmap(corelation_df, annot=True, cmap='Blues', vmin=-1, vmax=1)
+plt.title('Correlation Matrix of temp, atemp, hum, and windspeed with the number of bike rentals')
 st.pyplot(plt)
 
 # Additional Analysis: Clustering Based on Hour
-st.subheader("Analisis Keramaian Berdasarkan Jam")
+st.subheader("Analysis of Bike Renter Crowds by Hour")
 
-# Prepare data for clustering by hour
-hourly_df = main_df.groupby('hr')['cnt'].mean().reset_index()
-hourly_df.columns = ['Jam', 'Rata-rata Penyewa']
+# Clustering hours based on whether they belong to the "busy" or "off-peak" category
+threshold = hourly_df['Average Rentals'].mean()
+
+def classify_by_hourly_count(value):
+    if value > threshold:
+        return 'Peak Hours'
+    else:
+        return 'Off Peak Hours'
+
+hourly_df['Hour Category'] = hourly_df['Average Rentals'].apply(classify_by_hourly_count)
 
 # Plotting the average count per hour
 plt.figure(figsize=(12, 6))
-sns.lineplot(x='Jam', y='Rata-rata Penyewa', data=hourly_df, marker='o')
-plt.title("Rata-rata Penyewa Sepeda Berdasarkan Jam")
-plt.xlabel("Jam")
-plt.ylabel("Rata-rata Penyewa")
-st.pyplot(plt)
+sns.lineplot(x='Hour', y='Average Rentals', data=hourly_df, marker='o', hue='Hour Category', palette=['#8CB4E1','#1F61C4'])
+plt.title("Average Bike Renters by Hour with Clustering of Peak and Off-Peak Hours")
+plt.xlabel("Hour")
+plt.ylabel("Average Renters")
+plt.legend(title='Hour Category')
+plt.show()
 
 # Highlight peak and off-peak hours based on visualization
-peak_hours = hourly_df[hourly_df['Rata-rata Penyewa'] > hourly_df['Rata-rata Penyewa'].mean()]
-off_peak_hours = hourly_df[hourly_df['Rata-rata Penyewa'] <= hourly_df['Rata-rata Penyewa'].mean()]
+peak_hours = hourly_df[hourly_df['Average Rentals'] > threshold]
+off_peak_hours = hourly_df[hourly_df['Average Rentals'] <= threshold]
 
-st.markdown("### Jam Ramai")
+st.markdown("### Peak Hour Cluster")
 st.dataframe(peak_hours)
 
-st.markdown("### Jam Sepi")
+st.markdown("### Off-Peak Hour Cluster")
 st.dataframe(off_peak_hours)
 
 
