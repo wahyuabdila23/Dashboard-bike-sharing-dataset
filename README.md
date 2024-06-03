@@ -13,3 +13,8 @@ cd Dashboard-bike-sharing-dataset
 ```
 pip install -r requirements.txt
 ```
+## Run steamlit app
+```
+cd Dashboard-bike-sharing-dataset/dashboard
+streamlit run dashboard.py
+```
