@@ -42,7 +42,7 @@ def create_hourly_df(df):
   
     return hourly_df
 
-cleaned_df = pd.read_csv("all_data.csv")
+cleaned_df = pd.read_csv("dashboard/bike_sharing_data.csv")
 
 datetime_columns = ["dteday"]
 cleaned_df.sort_values(by="dteday", inplace=True)
