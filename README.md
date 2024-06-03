@@ -4,7 +4,7 @@ Here are the steps you can take to access my dashboard
 ## Installation
 1. Clone this repository to your local machine:
 ```
-git clone [https://github.com/mhdhfzz/data-analyst-dicoding.git](https://github.com/wahyuabdila23/Dashboard-bike-sharing-dataset.git)
+git clone https://github.com/wahyuabdila23/Dashboard-bike-sharing-dataset.git
 ```
 2. Go to the project directory
 ```
